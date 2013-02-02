@@ -25,4 +25,76 @@ http://0.0.0.0:8080/
 
 browse to `http://localhost:8080` view the server in action. 
 
+### API SPEC
 
+* `create → POST`
+* `read → GET`
+* `update → PUT`
+* `delete → DELETE`
+
+GET ALL TODOS
+------------
+
+* `GET /todos/` will return all available todos.
+    
+```json    
+[ 
+    {
+        "id":547201,
+        "title":"Take out the trash",
+        "completed":true
+    },
+    {
+        "id":547202,
+        "title":"Play HoN",
+        "completed":false,
+    }
+]
+```
+
+GET SINGLE TODO
+------------
+
+* `GET /todos/547201` will return the todo with the specified ID.
+    
+```json    
+{
+    "id":547201,
+    "title":"Take out the trash",
+    "completed":true
+}
+```
+
+
+CREATE TODO
+--------------
+
+* `POST /todos/` will create a new todo from the parameters passed.
+
+```json    
+{
+    "title":"Write HoN Bot",
+}
+```
+    
+This must return 201 Created, with the current JSON representation of the todo if the creation was a success.
+
+
+UPDATE TODO
+--------------
+
+* `PUT /todos/547202` will update the todo from the parameters passed.
+
+```json    
+{
+    "completed":true
+}
+```
+
+This must return 200 OK if the update was a success along with the current JSON representation of the todo.
+
+
+DELETE TODO
+--------------
+    
+* `DELETE /todos/547202` will delete the todo specified and return 204 No Content if that was successful
