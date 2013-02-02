@@ -1,0 +1,7 @@
+Since web.py will only serve the static folder located in the main application directory (without hacking away), I decided to create a symbolic link. If this doesn't work for you, copy the static directory '../../static/' into this directory.
+
+Run the server
+
+python main.py
+
+Browse to http://localhost:8080

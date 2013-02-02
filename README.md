@@ -1,5 +1,5 @@
-TodoPython
-===========
+TodoPy
+======
 
 # Python Todo Servers
 If you've ever used a "RESTful" API and thought it would be awesome to create your own, you're in the right place. This project's goal is to show you how easy it can be to accomplish just that in [Python](http://www.python.org/) with the most popular libraries.
