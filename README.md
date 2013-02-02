@@ -25,7 +25,7 @@ http://0.0.0.0:8080/
 
 browse to `http://localhost:8080` view the server in action. 
 
-### API SPEC
+# Server API SPEC
 
 * `create → POST`
 * `read → GET`
