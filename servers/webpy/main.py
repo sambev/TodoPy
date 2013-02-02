@@ -15,9 +15,9 @@ urls = (
 #-------------------------------
 app = web.application(urls, globals())
 
-render = web.template.render('html/')
+render = web.template.render('../../html/')
 
-db = web.database(dbn='sqlite', db='todos.db')
+db = web.database(dbn='sqlite', db='../../todos.db')
 #-------------------------------
 # HELPERS
 #-------------------------------
