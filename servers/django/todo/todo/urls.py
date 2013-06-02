@@ -8,7 +8,7 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'todo.views.main'),
     url(r'^todos/$', 'todo.views.todos'),
-    url(r'^todos/(?P<todo_id>[0-9])', 'todo.views.todos')
+    url(r'^todos/(?P<todo_id>[0-9]+)', 'todo.views.todos')
     # url(r'^todo/', include('todo.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

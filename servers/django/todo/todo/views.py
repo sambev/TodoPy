@@ -13,6 +13,8 @@ def pretty_todo(todo):
     else:
         todo.completed = False
 
+    return todo.completed
+
 
 def ugly_completed(arg):
     """
@@ -29,24 +31,40 @@ def main(request):
     """
     return render_to_response('index.html')
 
+
+def jsonifyTodo(todo):
+    ret = {}
+    ret['id'] = todo.id
+    ret['title'] = todo.title
+    ret['completed'] = pretty_todo(todo)
+
+    return json.dumps(ret)
+
+
 @csrf_exempt
-def todos(request):
+def todos(request, todo_id=None):
     """
     GET: return all the Todos
     POST: create a new todo
     """
     if request.method == 'GET':
-        todos = Todos.objects.all()
-        ret_data = []
-        for todo in todos:
-            pretty_todo(todo)
-            ret_data.append({
-                'id': todo.id,
-                'title': todo.title,
-                'completed': todo.completed
-            })
+        if todo_id:
+            # find the specific todo and return it
+            todo = Todos.objects.get(id=todo_id)
+            return HttpResponse(status=200, content=jsonifyTodo(todo), mimetype='application/json')
+        
+        else:
+            todos = Todos.objects.all()
+            ret_data = []
+            for todo in todos:
+                pretty_todo(todo)
+                ret_data.append({
+                    'id': todo.id,
+                    'title': todo.title,
+                    'completed': todo.completed
+                })
 
-        return HttpResponse(json.dumps(ret_data), mimetype='application/json')
+            return HttpResponse(json.dumps(ret_data), mimetype='application/json')
     
     elif request.method == 'POST':
         # create a new todo
@@ -54,7 +72,24 @@ def todos(request):
         new_todo = Todos()
         new_todo.title = data['title']
         new_todo.completed = ugly_completed(data['completed'])
-        print new_todo
         new_todo.save()
 
-        return HttpResponse('Hi')
+        return HttpResponse(status=201, content=jsonifyTodo(new_todo))
+
+
+    elif request.method == 'PUT':
+        # mark the todo as completed
+        data = json.loads(request.body)
+        todo = Todos.objects.get(id=todo_id)
+        todo.completed = ugly_completed(data['completed'])
+        todo.save()
+
+        return HttpResponse(status=200, content=jsonifyTodo(todo))
+
+
+    elif request.method == 'DELETE':
+        # delete the todo
+        todo = Todos.objects.get(id=todo_id)
+        todo.delete()
+
+        return HttpResponse(status=204)

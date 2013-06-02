@@ -10,7 +10,7 @@
 from django.db import models
 
 class Todos(models.Model):
-    id = models.IntegerField(null=True, primary_key=True, blank=True)
+    id = models.AutoField(null=True, primary_key=True, blank=True)
     title = models.TextField(blank=True)
     completed = models.IntegerField(null=True, blank=True)
     class Meta:
